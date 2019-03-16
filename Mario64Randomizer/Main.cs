@@ -33,7 +33,7 @@ namespace WindowsFormsApp1
             if (chk16S.Checked)
             {
                 seed = s.Next(0, 10000);
-                txtSeed.Text = seed.ToString();
+                nudSeed.Value = seed;
                 combineLists();
                 Shuffle(randomList, seed);
                 randomList = randomList.GetRange(0, 16);
@@ -90,7 +90,7 @@ namespace WindowsFormsApp1
         {
             if (chk16S.Checked)
             {
-                seed = Convert.ToInt32(txtSeed.Text);
+                seed = Convert.ToInt32(nudSeed.Value);
                 combineLists();
                 Shuffle(randomList, seed);
                 randomList = randomList.GetRange(0, 16);
@@ -107,6 +107,8 @@ namespace WindowsFormsApp1
         {
 
         }
+
+
     }
 
 

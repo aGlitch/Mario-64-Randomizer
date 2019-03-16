@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.btnNewSeed = new System.Windows.Forms.Button();
             this.btnEnterSeed = new System.Windows.Forms.Button();
-            this.txtSeed = new System.Windows.Forms.TextBox();
             this.chk16S = new System.Windows.Forms.CheckBox();
             this.chk70S = new System.Windows.Forms.CheckBox();
             this.txtRando = new System.Windows.Forms.TextBox();
@@ -50,6 +49,9 @@
             this.chkRandomSFX = new System.Windows.Forms.CheckBox();
             this.chkRandomMusic = new System.Windows.Forms.CheckBox();
             this.chkParallel = new System.Windows.Forms.CheckBox();
+            this.chkRandomWarps = new System.Windows.Forms.CheckBox();
+            this.nudSeed = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNewSeed
@@ -71,13 +73,6 @@
             this.btnEnterSeed.Text = "Enter Seed";
             this.btnEnterSeed.UseVisualStyleBackColor = true;
             this.btnEnterSeed.Click += new System.EventHandler(this.btnEnterSeed_Click);
-            // 
-            // txtSeed
-            // 
-            this.txtSeed.Location = new System.Drawing.Point(94, 28);
-            this.txtSeed.Name = "txtSeed";
-            this.txtSeed.Size = new System.Drawing.Size(152, 20);
-            this.txtSeed.TabIndex = 2;
             // 
             // chk16S
             // 
@@ -129,9 +124,9 @@
             this.chkFirst.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkFirst.Location = new System.Drawing.Point(94, 55);
             this.chkFirst.Name = "chkFirst";
-            this.chkFirst.Size = new System.Drawing.Size(45, 17);
+            this.chkFirst.Size = new System.Drawing.Size(63, 17);
             this.chkFirst.TabIndex = 8;
-            this.chkFirst.Text = "First";
+            this.chkFirst.Text = "Hallway";
             this.chkFirst.UseVisualStyleBackColor = true;
             // 
             // chkDownstairs
@@ -216,7 +211,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(369, 31);
+            this.label1.Location = new System.Drawing.Point(360, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(53, 13);
             this.label1.TabIndex = 16;
@@ -282,11 +277,35 @@
             this.chkParallel.Text = "Parallel Cam";
             this.chkParallel.UseVisualStyleBackColor = true;
             // 
+            // chkRandomWarps
+            // 
+            this.chkRandomWarps.AutoSize = true;
+            this.chkRandomWarps.Location = new System.Drawing.Point(382, 155);
+            this.chkRandomWarps.Name = "chkRandomWarps";
+            this.chkRandomWarps.Size = new System.Drawing.Size(113, 17);
+            this.chkRandomWarps.TabIndex = 23;
+            this.chkRandomWarps.Text = "Randomize Warps";
+            this.chkRandomWarps.UseVisualStyleBackColor = true;
+            // 
+            // nudSeed
+            // 
+            this.nudSeed.Location = new System.Drawing.Point(94, 28);
+            this.nudSeed.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nudSeed.Name = "nudSeed";
+            this.nudSeed.Size = new System.Drawing.Size(152, 20);
+            this.nudSeed.TabIndex = 24;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 130);
+            this.ClientSize = new System.Drawing.Size(544, 135);
+            this.Controls.Add(this.nudSeed);
+            this.Controls.Add(this.chkRandomWarps);
             this.Controls.Add(this.chkParallel);
             this.Controls.Add(this.chkRandomMusic);
             this.Controls.Add(this.chkRandomSFX);
@@ -305,12 +324,15 @@
             this.Controls.Add(this.txtRando);
             this.Controls.Add(this.chk70S);
             this.Controls.Add(this.chk16S);
-            this.Controls.Add(this.txtSeed);
             this.Controls.Add(this.btnEnterSeed);
             this.Controls.Add(this.btnNewSeed);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(560, 174);
+            this.MinimumSize = new System.Drawing.Size(560, 174);
             this.Name = "Main";
-            this.Text = "Super Mario 64 Randomizer v0.1 (by aGlitch)";
+            this.Text = "Super Mario 64 Randomizer v0.15 (by aGlitch)";
+            ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -320,7 +342,6 @@
 
         private System.Windows.Forms.Button btnNewSeed;
         private System.Windows.Forms.Button btnEnterSeed;
-        private System.Windows.Forms.TextBox txtSeed;
         private System.Windows.Forms.CheckBox chk16S;
         private System.Windows.Forms.CheckBox chk70S;
         private System.Windows.Forms.TextBox txtRando;
@@ -339,6 +360,8 @@
         private System.Windows.Forms.CheckBox chkRandomSFX;
         private System.Windows.Forms.CheckBox chkRandomMusic;
         private System.Windows.Forms.CheckBox chkParallel;
+        private System.Windows.Forms.CheckBox chkRandomWarps;
+        private System.Windows.Forms.NumericUpDown nudSeed;
     }
 }
 
