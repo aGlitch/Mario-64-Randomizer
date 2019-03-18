@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
+using System.Diagnostics;
 
-namespace WindowsFormsApp1
+namespace Mario64Randomizer
 {
     public partial class Main : Form
     {
@@ -30,15 +32,12 @@ namespace WindowsFormsApp1
 
         private void btnNewSeed_Click(object sender, EventArgs e)
         {
-            if (chk16S.Checked)
-            {
-                seed = s.Next(0, 10000);
-                nudSeed.Value = seed;
-                combineLists();
-                Shuffle(randomList, seed);
-                randomList = randomList.GetRange(0, 16);
-                txtRando.Text = string.Join("-", randomList);
-            }
+            seed = s.Next(0, 10000);
+            nudSeed.Value = seed;
+            combineLists();
+            Shuffle(randomList, seed);
+            randomList = randomList.GetRange(0, Convert.ToInt32(nudStarAmount.Value));
+            refreshCheckList();
         }
 
         public static void Shuffle<T>(IList<T> list, int seed)
@@ -53,6 +52,12 @@ namespace WindowsFormsApp1
                 list[i - 1] = list[pos];
                 list[pos] = x;
             }
+        }
+
+        public void refreshCheckList()
+        {
+            chkLsStars.ClearSelected();
+            ((ListBox)chkLsStars).DataSource = randomList;
         }
 
         public void combineLists()
@@ -88,29 +93,11 @@ namespace WindowsFormsApp1
 
         private void btnEnterSeed_Click(object sender, EventArgs e)
         {
-            if (chk16S.Checked)
-            {
-                seed = Convert.ToInt32(nudSeed.Value);
-                combineLists();
-                Shuffle(randomList, seed);
-                randomList = randomList.GetRange(0, 16);
-                txtRando.Text = string.Join("-", randomList);
-            }
+            seed = Convert.ToInt32(nudSeed.Value);
+            combineLists();
+            Shuffle(randomList, seed);
+            randomList = randomList.GetRange(0, Convert.ToInt32(nudStarAmount.Value));
+            refreshCheckList();
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnGeneratePatch_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
-
-
-
 }

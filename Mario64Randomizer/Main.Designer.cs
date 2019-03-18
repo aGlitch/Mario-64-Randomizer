@@ -1,4 +1,4 @@
-﻿namespace WindowsFormsApp1
+﻿namespace Mario64Randomizer
 {
     partial class Main
     {
@@ -31,9 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.btnNewSeed = new System.Windows.Forms.Button();
             this.btnEnterSeed = new System.Windows.Forms.Button();
-            this.chk16S = new System.Windows.Forms.CheckBox();
-            this.chk70S = new System.Windows.Forms.CheckBox();
-            this.txtRando = new System.Windows.Forms.TextBox();
             this.chkRunOnly = new System.Windows.Forms.CheckBox();
             this.chkFirst = new System.Windows.Forms.CheckBox();
             this.chkDownstairs = new System.Windows.Forms.CheckBox();
@@ -42,7 +39,6 @@
             this.chkTop = new System.Windows.Forms.CheckBox();
             this.chkSecretStars = new System.Windows.Forms.CheckBox();
             this.chkToads = new System.Windows.Forms.CheckBox();
-            this.txtStarsNumber = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnGeneratePatch = new System.Windows.Forms.Button();
             this.chkRandomClothes = new System.Windows.Forms.CheckBox();
@@ -51,12 +47,15 @@
             this.chkParallel = new System.Windows.Forms.CheckBox();
             this.chkRandomWarps = new System.Windows.Forms.CheckBox();
             this.nudSeed = new System.Windows.Forms.NumericUpDown();
+            this.nudStarAmount = new System.Windows.Forms.NumericUpDown();
+            this.chkLsStars = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStarAmount)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNewSeed
             // 
-            this.btnNewSeed.Location = new System.Drawing.Point(13, 26);
+            this.btnNewSeed.Location = new System.Drawing.Point(51, 27);
             this.btnNewSeed.Name = "btnNewSeed";
             this.btnNewSeed.Size = new System.Drawing.Size(75, 23);
             this.btnNewSeed.TabIndex = 0;
@@ -66,7 +65,7 @@
             // 
             // btnEnterSeed
             // 
-            this.btnEnterSeed.Location = new System.Drawing.Point(252, 26);
+            this.btnEnterSeed.Location = new System.Drawing.Point(209, 27);
             this.btnEnterSeed.Name = "btnEnterSeed";
             this.btnEnterSeed.Size = new System.Drawing.Size(92, 23);
             this.btnEnterSeed.TabIndex = 1;
@@ -74,55 +73,24 @@
             this.btnEnterSeed.UseVisualStyleBackColor = true;
             this.btnEnterSeed.Click += new System.EventHandler(this.btnEnterSeed_Click);
             // 
-            // chk16S
-            // 
-            this.chk16S.AutoSize = true;
-            this.chk16S.Checked = true;
-            this.chk16S.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chk16S.Enabled = false;
-            this.chk16S.Location = new System.Drawing.Point(13, 54);
-            this.chk16S.Name = "chk16S";
-            this.chk16S.Size = new System.Drawing.Size(65, 17);
-            this.chk16S.TabIndex = 3;
-            this.chk16S.Text = "16 Stars";
-            this.chk16S.UseVisualStyleBackColor = true;
-            // 
-            // chk70S
-            // 
-            this.chk70S.AutoSize = true;
-            this.chk70S.Enabled = false;
-            this.chk70S.Location = new System.Drawing.Point(13, 77);
-            this.chk70S.Name = "chk70S";
-            this.chk70S.Size = new System.Drawing.Size(65, 17);
-            this.chk70S.TabIndex = 4;
-            this.chk70S.Text = "70 Stars";
-            this.chk70S.UseVisualStyleBackColor = true;
-            // 
-            // txtRando
-            // 
-            this.txtRando.Location = new System.Drawing.Point(13, 100);
-            this.txtRando.Name = "txtRando";
-            this.txtRando.ReadOnly = true;
-            this.txtRando.Size = new System.Drawing.Size(515, 20);
-            this.txtRando.TabIndex = 5;
-            // 
             // chkRunOnly
             // 
             this.chkRunOnly.AutoSize = true;
             this.chkRunOnly.Enabled = false;
-            this.chkRunOnly.Location = new System.Drawing.Point(382, 54);
+            this.chkRunOnly.Location = new System.Drawing.Point(51, 123);
             this.chkRunOnly.Name = "chkRunOnly";
             this.chkRunOnly.Size = new System.Drawing.Size(97, 17);
             this.chkRunOnly.TabIndex = 7;
             this.chkRunOnly.Text = "Run Only Stars";
             this.chkRunOnly.UseVisualStyleBackColor = true;
+            this.chkRunOnly.Visible = false;
             // 
             // chkFirst
             // 
             this.chkFirst.AutoSize = true;
             this.chkFirst.Checked = true;
             this.chkFirst.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkFirst.Location = new System.Drawing.Point(94, 55);
+            this.chkFirst.Location = new System.Drawing.Point(51, 78);
             this.chkFirst.Name = "chkFirst";
             this.chkFirst.Size = new System.Drawing.Size(63, 17);
             this.chkFirst.TabIndex = 8;
@@ -134,7 +102,7 @@
             this.chkDownstairs.AutoSize = true;
             this.chkDownstairs.Checked = true;
             this.chkDownstairs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkDownstairs.Location = new System.Drawing.Point(94, 78);
+            this.chkDownstairs.Location = new System.Drawing.Point(51, 101);
             this.chkDownstairs.Name = "chkDownstairs";
             this.chkDownstairs.Size = new System.Drawing.Size(78, 17);
             this.chkDownstairs.TabIndex = 9;
@@ -146,7 +114,7 @@
             this.chkUpstairs.AutoSize = true;
             this.chkUpstairs.Checked = true;
             this.chkUpstairs.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkUpstairs.Location = new System.Drawing.Point(182, 54);
+            this.chkUpstairs.Location = new System.Drawing.Point(139, 77);
             this.chkUpstairs.Name = "chkUpstairs";
             this.chkUpstairs.Size = new System.Drawing.Size(64, 17);
             this.chkUpstairs.TabIndex = 10;
@@ -158,7 +126,7 @@
             this.chkBowserStars.AutoSize = true;
             this.chkBowserStars.Checked = true;
             this.chkBowserStars.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkBowserStars.Location = new System.Drawing.Point(274, 55);
+            this.chkBowserStars.Location = new System.Drawing.Point(209, 78);
             this.chkBowserStars.Name = "chkBowserStars";
             this.chkBowserStars.Size = new System.Drawing.Size(88, 17);
             this.chkBowserStars.TabIndex = 11;
@@ -170,7 +138,7 @@
             this.chkTop.AutoSize = true;
             this.chkTop.Checked = true;
             this.chkTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkTop.Location = new System.Drawing.Point(182, 77);
+            this.chkTop.Location = new System.Drawing.Point(139, 100);
             this.chkTop.Name = "chkTop";
             this.chkTop.Size = new System.Drawing.Size(45, 17);
             this.chkTop.TabIndex = 12;
@@ -182,7 +150,7 @@
             this.chkSecretStars.AutoSize = true;
             this.chkSecretStars.Checked = true;
             this.chkSecretStars.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkSecretStars.Location = new System.Drawing.Point(274, 77);
+            this.chkSecretStars.Location = new System.Drawing.Point(209, 100);
             this.chkSecretStars.Name = "chkSecretStars";
             this.chkSecretStars.Size = new System.Drawing.Size(84, 17);
             this.chkSecretStars.TabIndex = 13;
@@ -193,40 +161,31 @@
             // 
             this.chkToads.AutoSize = true;
             this.chkToads.Enabled = false;
-            this.chkToads.Location = new System.Drawing.Point(382, 77);
+            this.chkToads.Location = new System.Drawing.Point(209, 123);
             this.chkToads.Name = "chkToads";
             this.chkToads.Size = new System.Drawing.Size(102, 17);
             this.chkToads.TabIndex = 14;
             this.chkToads.Text = "Toads and Mips";
             this.chkToads.UseVisualStyleBackColor = true;
-            // 
-            // txtStarsNumber
-            // 
-            this.txtStarsNumber.Location = new System.Drawing.Point(428, 28);
-            this.txtStarsNumber.Name = "txtStarsNumber";
-            this.txtStarsNumber.ReadOnly = true;
-            this.txtStarsNumber.Size = new System.Drawing.Size(100, 20);
-            this.txtStarsNumber.TabIndex = 15;
+            this.chkToads.Visible = false;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(360, 31);
+            this.label1.Location = new System.Drawing.Point(50, 57);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(83, 13);
             this.label1.TabIndex = 16;
-            this.label1.Text = "# of Stars";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "Number of Stars";
             // 
             // btnGeneratePatch
             // 
-            this.btnGeneratePatch.Location = new System.Drawing.Point(13, 155);
+            this.btnGeneratePatch.Location = new System.Drawing.Point(18, 394);
             this.btnGeneratePatch.Name = "btnGeneratePatch";
-            this.btnGeneratePatch.Size = new System.Drawing.Size(75, 45);
+            this.btnGeneratePatch.Size = new System.Drawing.Size(64, 45);
             this.btnGeneratePatch.TabIndex = 17;
             this.btnGeneratePatch.Text = "Generate Patch";
             this.btnGeneratePatch.UseVisualStyleBackColor = true;
-            this.btnGeneratePatch.Click += new System.EventHandler(this.btnGeneratePatch_Click);
             // 
             // chkRandomClothes
             // 
@@ -234,7 +193,7 @@
             this.chkRandomClothes.Checked = true;
             this.chkRandomClothes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomClothes.Enabled = false;
-            this.chkRandomClothes.Location = new System.Drawing.Point(112, 155);
+            this.chkRandomClothes.Location = new System.Drawing.Point(93, 394);
             this.chkRandomClothes.Name = "chkRandomClothes";
             this.chkRandomClothes.Size = new System.Drawing.Size(153, 17);
             this.chkRandomClothes.TabIndex = 18;
@@ -247,7 +206,7 @@
             this.chkRandomSFX.Checked = true;
             this.chkRandomSFX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomSFX.Enabled = false;
-            this.chkRandomSFX.Location = new System.Drawing.Point(112, 179);
+            this.chkRandomSFX.Location = new System.Drawing.Point(93, 418);
             this.chkRandomSFX.Name = "chkRandomSFX";
             this.chkRandomSFX.Size = new System.Drawing.Size(102, 17);
             this.chkRandomSFX.TabIndex = 19;
@@ -260,7 +219,7 @@
             this.chkRandomMusic.Checked = true;
             this.chkRandomMusic.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomMusic.Enabled = false;
-            this.chkRandomMusic.Location = new System.Drawing.Point(274, 155);
+            this.chkRandomMusic.Location = new System.Drawing.Point(93, 464);
             this.chkRandomMusic.Name = "chkRandomMusic";
             this.chkRandomMusic.Size = new System.Drawing.Size(110, 17);
             this.chkRandomMusic.TabIndex = 20;
@@ -270,7 +229,7 @@
             // chkParallel
             // 
             this.chkParallel.AutoSize = true;
-            this.chkParallel.Location = new System.Drawing.Point(274, 179);
+            this.chkParallel.Location = new System.Drawing.Point(93, 488);
             this.chkParallel.Name = "chkParallel";
             this.chkParallel.Size = new System.Drawing.Size(84, 17);
             this.chkParallel.TabIndex = 22;
@@ -280,7 +239,7 @@
             // chkRandomWarps
             // 
             this.chkRandomWarps.AutoSize = true;
-            this.chkRandomWarps.Location = new System.Drawing.Point(382, 155);
+            this.chkRandomWarps.Location = new System.Drawing.Point(93, 441);
             this.chkRandomWarps.Name = "chkRandomWarps";
             this.chkRandomWarps.Size = new System.Drawing.Size(113, 17);
             this.chkRandomWarps.TabIndex = 23;
@@ -289,21 +248,50 @@
             // 
             // nudSeed
             // 
-            this.nudSeed.Location = new System.Drawing.Point(94, 28);
+            this.nudSeed.Location = new System.Drawing.Point(132, 29);
             this.nudSeed.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
             this.nudSeed.Name = "nudSeed";
-            this.nudSeed.Size = new System.Drawing.Size(152, 20);
+            this.nudSeed.Size = new System.Drawing.Size(71, 20);
             this.nudSeed.TabIndex = 24;
+            // 
+            // nudStarAmount
+            // 
+            this.nudStarAmount.Location = new System.Drawing.Point(131, 55);
+            this.nudStarAmount.Maximum = new decimal(new int[] {
+            120,
+            0,
+            0,
+            0});
+            this.nudStarAmount.Name = "nudStarAmount";
+            this.nudStarAmount.Size = new System.Drawing.Size(72, 20);
+            this.nudStarAmount.TabIndex = 25;
+            this.nudStarAmount.Value = new decimal(new int[] {
+            16,
+            0,
+            0,
+            0});
+            // 
+            // chkLsStars
+            // 
+            this.chkLsStars.BackColor = System.Drawing.SystemColors.Control;
+            this.chkLsStars.FormattingEnabled = true;
+            this.chkLsStars.Location = new System.Drawing.Point(51, 146);
+            this.chkLsStars.Name = "chkLsStars";
+            this.chkLsStars.ScrollAlwaysVisible = true;
+            this.chkLsStars.Size = new System.Drawing.Size(261, 214);
+            this.chkLsStars.TabIndex = 26;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(544, 135);
+            this.ClientSize = new System.Drawing.Size(364, 381);
+            this.Controls.Add(this.chkLsStars);
+            this.Controls.Add(this.nudStarAmount);
             this.Controls.Add(this.nudSeed);
             this.Controls.Add(this.chkRandomWarps);
             this.Controls.Add(this.chkParallel);
@@ -312,7 +300,6 @@
             this.Controls.Add(this.chkRandomClothes);
             this.Controls.Add(this.btnGeneratePatch);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtStarsNumber);
             this.Controls.Add(this.chkToads);
             this.Controls.Add(this.chkSecretStars);
             this.Controls.Add(this.chkTop);
@@ -321,18 +308,16 @@
             this.Controls.Add(this.chkDownstairs);
             this.Controls.Add(this.chkFirst);
             this.Controls.Add(this.chkRunOnly);
-            this.Controls.Add(this.txtRando);
-            this.Controls.Add(this.chk70S);
-            this.Controls.Add(this.chk16S);
             this.Controls.Add(this.btnEnterSeed);
             this.Controls.Add(this.btnNewSeed);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(560, 174);
-            this.MinimumSize = new System.Drawing.Size(560, 174);
+            this.MaximumSize = new System.Drawing.Size(380, 420);
+            this.MinimumSize = new System.Drawing.Size(300, 420);
             this.Name = "Main";
-            this.Text = "Super Mario 64 Randomizer v0.15 (by aGlitch)";
+            this.Text = "Super Mario 64 Randomizer v0.2";
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStarAmount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -342,9 +327,6 @@
 
         private System.Windows.Forms.Button btnNewSeed;
         private System.Windows.Forms.Button btnEnterSeed;
-        private System.Windows.Forms.CheckBox chk16S;
-        private System.Windows.Forms.CheckBox chk70S;
-        private System.Windows.Forms.TextBox txtRando;
         private System.Windows.Forms.CheckBox chkRunOnly;
         private System.Windows.Forms.CheckBox chkFirst;
         private System.Windows.Forms.CheckBox chkDownstairs;
@@ -353,7 +335,6 @@
         private System.Windows.Forms.CheckBox chkTop;
         private System.Windows.Forms.CheckBox chkSecretStars;
         private System.Windows.Forms.CheckBox chkToads;
-        private System.Windows.Forms.TextBox txtStarsNumber;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnGeneratePatch;
         private System.Windows.Forms.CheckBox chkRandomClothes;
@@ -362,6 +343,8 @@
         private System.Windows.Forms.CheckBox chkParallel;
         private System.Windows.Forms.CheckBox chkRandomWarps;
         private System.Windows.Forms.NumericUpDown nudSeed;
+        private System.Windows.Forms.NumericUpDown nudStarAmount;
+        private System.Windows.Forms.CheckedListBox chkLsStars;
     }
 }
 
