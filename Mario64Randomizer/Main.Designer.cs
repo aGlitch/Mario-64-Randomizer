@@ -180,7 +180,7 @@
             // 
             // btnGeneratePatch
             // 
-            this.btnGeneratePatch.Location = new System.Drawing.Point(18, 394);
+            this.btnGeneratePatch.Location = new System.Drawing.Point(33, 492);
             this.btnGeneratePatch.Name = "btnGeneratePatch";
             this.btnGeneratePatch.Size = new System.Drawing.Size(64, 45);
             this.btnGeneratePatch.TabIndex = 17;
@@ -193,7 +193,7 @@
             this.chkRandomClothes.Checked = true;
             this.chkRandomClothes.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomClothes.Enabled = false;
-            this.chkRandomClothes.Location = new System.Drawing.Point(93, 394);
+            this.chkRandomClothes.Location = new System.Drawing.Point(108, 492);
             this.chkRandomClothes.Name = "chkRandomClothes";
             this.chkRandomClothes.Size = new System.Drawing.Size(153, 17);
             this.chkRandomClothes.TabIndex = 18;
@@ -206,7 +206,7 @@
             this.chkRandomSFX.Checked = true;
             this.chkRandomSFX.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomSFX.Enabled = false;
-            this.chkRandomSFX.Location = new System.Drawing.Point(93, 418);
+            this.chkRandomSFX.Location = new System.Drawing.Point(108, 516);
             this.chkRandomSFX.Name = "chkRandomSFX";
             this.chkRandomSFX.Size = new System.Drawing.Size(102, 17);
             this.chkRandomSFX.TabIndex = 19;
@@ -219,7 +219,7 @@
             this.chkRandomMusic.Checked = true;
             this.chkRandomMusic.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkRandomMusic.Enabled = false;
-            this.chkRandomMusic.Location = new System.Drawing.Point(93, 464);
+            this.chkRandomMusic.Location = new System.Drawing.Point(108, 562);
             this.chkRandomMusic.Name = "chkRandomMusic";
             this.chkRandomMusic.Size = new System.Drawing.Size(110, 17);
             this.chkRandomMusic.TabIndex = 20;
@@ -229,7 +229,7 @@
             // chkParallel
             // 
             this.chkParallel.AutoSize = true;
-            this.chkParallel.Location = new System.Drawing.Point(93, 488);
+            this.chkParallel.Location = new System.Drawing.Point(108, 586);
             this.chkParallel.Name = "chkParallel";
             this.chkParallel.Size = new System.Drawing.Size(84, 17);
             this.chkParallel.TabIndex = 22;
@@ -239,7 +239,7 @@
             // chkRandomWarps
             // 
             this.chkRandomWarps.AutoSize = true;
-            this.chkRandomWarps.Location = new System.Drawing.Point(93, 441);
+            this.chkRandomWarps.Location = new System.Drawing.Point(108, 539);
             this.chkRandomWarps.Name = "chkRandomWarps";
             this.chkRandomWarps.Size = new System.Drawing.Size(113, 17);
             this.chkRandomWarps.TabIndex = 23;
@@ -250,7 +250,7 @@
             // 
             this.nudSeed.Location = new System.Drawing.Point(132, 29);
             this.nudSeed.Maximum = new decimal(new int[] {
-            10000,
+            160000,
             0,
             0,
             0});
@@ -282,14 +282,14 @@
             this.chkLsStars.Location = new System.Drawing.Point(51, 146);
             this.chkLsStars.Name = "chkLsStars";
             this.chkLsStars.ScrollAlwaysVisible = true;
-            this.chkLsStars.Size = new System.Drawing.Size(261, 214);
+            this.chkLsStars.Size = new System.Drawing.Size(261, 304);
             this.chkLsStars.TabIndex = 26;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 381);
+            this.ClientSize = new System.Drawing.Size(364, 461);
             this.Controls.Add(this.chkLsStars);
             this.Controls.Add(this.nudStarAmount);
             this.Controls.Add(this.nudSeed);
@@ -312,10 +312,10 @@
             this.Controls.Add(this.btnNewSeed);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(380, 420);
-            this.MinimumSize = new System.Drawing.Size(300, 420);
+            this.MaximumSize = new System.Drawing.Size(380, 500);
+            this.MinimumSize = new System.Drawing.Size(300, 500);
             this.Name = "Main";
-            this.Text = "Super Mario 64 Randomizer v0.2";
+            this.Text = "Super Mario 64 Randomizer v0.25";
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStarAmount)).EndInit();
             this.ResumeLayout(false);
