@@ -1,5 +1,5 @@
 # Mario-64-Randomizer
-This program is meant for SM64 races. It generates a sequence of Stars that places will get as fast as possible. It's up to each player the Star order
+This program is meant for SM64 races. It generates a sequence of Stars that players will try to get as fast as possible. The order of the stars is up to each player.
 
 # How to Use it?
 Just download the executable file in the Release section. Double click to run it. Click on "New Seed" to generate a new Randomized Star Sequence
