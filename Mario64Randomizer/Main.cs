@@ -95,8 +95,8 @@ namespace Mario64Randomizer
             ImageList list = new ImageList();
             list.ImageSize = new Size(24, 24);
             list.ColorDepth = ColorDepth.Depth32Bit;
-            list.Images.Add("blue", Image.FromFile("images/blueStar.png"));
-            list.Images.Add("gold", Image.FromFile("images/star.png"));
+            list.Images.Add("blue", Mario64Randomizer.Properties.Resources.blueStar);
+            list.Images.Add("gold", Mario64Randomizer.Properties.Resources.star);
             lvStars.LargeImageList = list;
 
             for (int i = 0; i < randomList.Count; i++)
