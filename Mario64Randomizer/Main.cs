@@ -232,10 +232,6 @@ namespace Mario64Randomizer
             {
                 randomList = randomList.GetRange(0, Convert.ToInt32(nudStarAmount.Value));
             }
-            else
-            {
-                randomList = randomList.GetRange(0, randomList.Count);
-            }
         }
     }
 }
