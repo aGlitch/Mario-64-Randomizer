@@ -228,7 +228,13 @@ namespace Mario64Randomizer
         {
             // Check that randomList.Count >= nudStarAmount.Value
             // Without this check, there will be a System.ArgumentException 
-            if (randomList.Count >= nudStarAmount.Value)
+
+            // The only time this needs to run is if the following condition is true.
+            // Otherwise, without this if, the above bug would occure.
+            // This is but one possibly solution. You may wish to alert the user that
+            // they will not be running their desired number of stars. If that is the case,
+            // simply make an else statement with extra code.
+            if (randomList.Count > nudStarAmount.Value)
             {
                 randomList = randomList.GetRange(0, Convert.ToInt32(nudStarAmount.Value));
             }
