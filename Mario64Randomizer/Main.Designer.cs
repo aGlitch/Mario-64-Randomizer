@@ -198,13 +198,18 @@
             // 
             // lvStars
             // 
+            this.lvStars.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lvStars.BackColor = System.Drawing.SystemColors.InfoText;
             this.lvStars.ForeColor = System.Drawing.SystemColors.Info;
             this.lvStars.LabelWrap = false;
             this.lvStars.Location = new System.Drawing.Point(55, 138);
+            this.lvStars.MinimumSize = new System.Drawing.Size(250, 150);
             this.lvStars.MultiSelect = false;
             this.lvStars.Name = "lvStars";
-            this.lvStars.Size = new System.Drawing.Size(250, 352);
+            this.lvStars.Size = new System.Drawing.Size(250, 350);
+            this.lvStars.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvStars.TabIndex = 28;
             this.lvStars.TileSize = new System.Drawing.Size(220, 30);
             this.lvStars.UseCompatibleStateImageBehavior = false;
@@ -268,10 +273,11 @@
             this.Controls.Add(this.btnNewSeed);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(380, 540);
-            this.MinimumSize = new System.Drawing.Size(380, 540);
+            this.MaximumSize = new System.Drawing.Size(380, 1080);
+            this.MinimumSize = new System.Drawing.Size(380, 350);
             this.Name = "Main";
-            this.Text = "Super Mario 64 Randomizer v0.35";
+            this.Text = "Super Mario 64 Randomizer v0.40";
+            this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStarAmount)).EndInit();
             this.ResumeLayout(false);
