@@ -1,5 +1,5 @@
 # Mario-64-Randomizer
-Program that Randomizes Warps, Objects, Music and even Mario's Clothes. Works with any Romhack and vanilla. It also includes a Sequence Randomizer (works with vanilla only for now).  
+Mario 64 Randomizer is program that Randomizes Warps, Objects, Music and even Mario's Clothes. Works with any Romhack and vanilla. It also includes a Sequence Randomizer (vanilla only for now).  
 
 # How to Use it?
 
