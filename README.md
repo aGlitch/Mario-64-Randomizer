@@ -15,6 +15,6 @@ Vanilla Patch:
 BBH is a warp located where the Buddy Boo with the Cage was
 BitFS is now a warp located against a wall in the DDD / BitFS corridor
 
-# Feedback and More info!
+# Credits & Support
 aGlitch [https://twitter.com/aGlitch_](https://twitter.com/aGlitch_)
 aglab2 (Discord: aglab2#6619)
