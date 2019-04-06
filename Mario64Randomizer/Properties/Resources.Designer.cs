@@ -71,12 +71,117 @@ namespace Mario64Randomizer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 13003174 : Bob-Omb Behavior
+        ///130031DC : Pink Bob-omb with message
+        ///13003228 : Pink Bob-omb Opening Cannon Behav
+        ///13004770 : Three Goombas
+        ///130032E0 : Wooden Signpost.
+        /// </summary>
+        internal static string groundedBehaviours {
+            get {
+                return ResourceManager.GetString("groundedBehaviours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap help {
+            get {
+                object obj = ResourceManager.GetObject("help", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 130000AC : Eye ball bullet
+        ///13000494 : Aquarium Fish Group
+        ///13000528 : Chuckya Behavior
+        ///13000600 : Bullet Bill Cannon Behav
+        ///130007F8 : Star
+        ///1300080C : Star (100cc?)
+        ///13000830 : Blue Coin (big goomba)
+        ///13000888 : Yellow coin (Boo)
+        ///1300090C : One Coin
+        ///1300091C : Collectable Coin
+        ///13000964 : Three yellow coins
+        ///13000984 : Ten yellow coins
+        ///130009A4 : Yellow coin
+        ///13000B58 : Grindel Behavior
+        ///13000B8C : Thwomp Behavior 2
+        ///13000BC8 : Thwomp Behavior
+        ///13001108 : Flame Thrower Behavior
+        ///130012B4 : SpinDrift B [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string notGrounded {
+            get {
+                return ResourceManager.GetString("notGrounded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap refresh {
+            get {
+                object obj = ResourceManager.GetObject("refresh", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap star {
             get {
                 object obj = ResourceManager.GetObject("star", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1300075C : 
+        ///13000780 : 
+        ///130007A0 : 
+        ///13000AFC : 
+        ///13000B14 : it might not be warping door
+        ///13001C34 :
+        ///1300248C :
+        ///13002710 : boo
+        ///13002F60 :
+        ///13002F64 :
+        ///13002F68 :
+        ///13002F6C :
+        ///13002F70 :
+        ///13002F74 :
+        ///13002F78 :
+        ///13002F7C :
+        ///13002F80 :
+        ///13002F84 :
+        ///13002F88 :
+        ///13002F8C :
+        ///13002F90 :
+        ///13002F94 :.
+        /// </summary>
+        internal static string targetWarps {
+            get {
+                return ResourceManager.GetString("targetWarps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1300075C : 
+        ///13000780 : 
+        ///130007A0 : 
+        ///13000AFC : 
+        ///13000B14 : it might not be warping door
+        ///13001C34 :
+        ///1300248C :
+        ///13002710 : boo.
+        /// </summary>
+        internal static string warpBehaviours {
+            get {
+                return ResourceManager.GetString("warpBehaviours", resourceCulture);
             }
         }
     }

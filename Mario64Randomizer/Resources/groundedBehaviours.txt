@@ -1,0 +1,5 @@
+13003174 : Bob-Omb Behavior
+130031DC : Pink Bob-omb with message
+13003228 : Pink Bob-omb Opening Cannon Behav
+13004770 : Three Goombas
+130032E0 : Wooden Signpost

@@ -1,0 +1,29 @@
+.orga 0xB594
+	JAL 0x80402600
+	LW T7, 0x70(T6)
+
+.orga 0x1202600
+.area 0x80, 0x00
+	ANDI T9, T7, 0x2000
+	LUI V1, 0x8040
+	LBU A0, 0x26FF(V1)
+	SB R0, 0x26FF(V1)
+	JR RA
+	ADD T9, T9, A0
+.endarea
+
+.orga 0x42038
+	JAL 0x80402680
+	ADDIU T0, R0, 2
+
+.orga 0x1202680
+.area 0x80, 0x00
+	LUI V1, 0x8040
+	SB K1, 0x26FF(V1)
+	
+	LI V0, 1
+	SB V0, 0x8032DA94
+	
+	JR RA
+	NOP
+.endarea

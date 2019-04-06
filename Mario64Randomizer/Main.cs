@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
+using Mario64Randomizer.SM64;
+using Mario64Randomizer.Parsers;
+using System.IO;
+using System.Reflection;
+using Mario64Randomizer.patches;
 
 namespace Mario64Randomizer
 {
@@ -16,7 +21,22 @@ namespace Mario64Randomizer
     {
         private Random s = new Random();
         public int seed = 0;
-        
+        ROM rm;
+        private string romName;
+
+        //
+        private Color colorMarioOveralls;
+        private Color colorMarioGloves;
+        private Color colorMarioShoes;
+        private Color colorMarioCap;
+        private Color colorMarioFace;
+        private Color colorMarioHair;
+        //
+
+        public List<int> warpingBehaviours;
+        public List<int> targetWarpBehaviours;
+        public List<string> behavioursWithNames;
+
         private List<string> first = new List<string>()
         {
             "BOB1: Big Bob-omb on the Summit", "BOB2: Footrace with Koopa the Quick", "BOB3: Shoot to the Island in the Sky", "BOB4: Find the 8 Red Coins", "BOB5: Mario Wings to the Sky", "BOB6: Behind Chain Chomp's Gate", "BOB7: 100 Coin Star",
@@ -59,8 +79,16 @@ namespace Mario64Randomizer
         }
 
         private void Main_Load(object sender, System.EventArgs e)
-        {
+        {            
             this.btnNewSeed.PerformClick();
+            behavioursWithNames = Properties.Resources.notGrounded.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            warpingBehaviours = Properties.Resources.warpBehaviours.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList().Select(x => Convert.ToInt32(x.Split(new char[] { ':' })[0].Trim(), 16)).ToList();
+            targetWarpBehaviours = Properties.Resources.targetWarps.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList().Select(x => Convert.ToInt32(x.Split(new char[] { ':' })[0].Trim(), 16)).ToList();
+            lBehaviours.DataSource = behavioursWithNames;
+            for (int i = 0; i < chklbWarpList.Items.Count; i++)
+            {
+                chklbWarpList.SetItemChecked(i, true);
+            }
         }
 
         private void btnNewSeed_Click(object sender, EventArgs e)
@@ -68,7 +96,7 @@ namespace Mario64Randomizer
             combineLists();
             if (nudStarAmount.Value <= randomList.Count)
             {
-                seed = s.Next(0, 160000);
+                seed = s.Next(0, 1000000000);
                 nudSeed.Value = seed;
 
                 Shuffle(randomList, seed);
@@ -214,5 +242,599 @@ namespace Mario64Randomizer
                 }
             }
         }
+
+        private void btnOpenRom_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "ROM Files (*.z64)|*.z64";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+            
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    rm = new ROM(File.ReadAllBytes(openFileDialog.FileName));
+                    romName = Path.GetFileNameWithoutExtension(openFileDialog.FileName);
+                    Patch p = new Patch(AppDomain.CurrentDomain.BaseDirectory + "patches\\warpfadefix");
+                    p.Apply(rm);
+
+                    MessageBox.Show("Your ROM was loaded!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Failed to load!", "-_-", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private void btnRandomize_Click(object sender, EventArgs e)
+        {
+            if(rm != null)
+            {
+                if (chkRandomizeMusic.Checked)
+                {
+                    List<Song> allSongs = new List<Song>();
+
+                    for (int addr = 0x2AC094; addr <= 0x2AC2EC; addr += 20)
+                    {
+                        try
+                        {
+                            List<Song> levelSongs = FindSongsParser.FindSongs(rm, addr);
+                            allSongs.AddRange(levelSongs);
+                        }
+                        catch (Exception) { }
+                    }
+
+                    IEnumerable<Song> songList = allSongs;
+
+                    IList<byte> seqList = songList.Select(x => x.seqNumber).ToList();
+
+                    Shuffle(seqList, seed);
+
+                    IEnumerable<Song> shuffledSongs = songList.Zip(seqList, (song, seqNumber) => new Song(seqNumber, song.addr, song.musicOffset));
+
+                    foreach (Song song in shuffledSongs)
+                    {
+                        song.Write(rm);
+                    }
+
+                    //MessageBox.Show("Music Randomized", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                if (chkRandomizeWarps.Checked)
+                {
+                    List<Warp> allWarps = new List<Warp>();
+                    List<Warp> targetWarps = new List<Warp>();
+
+                    foreach (LevelOffsetsDescription lod in LevelInfo.Description)
+                    {
+                        if (chklbWarpList.GetItemCheckState(lod.NaturalIndex) == CheckState.Unchecked)
+                            continue;
+
+                        try
+                        {
+                            int addr = lod.LevelScriptEntryPoint;
+
+                            List<Warp> levelWarps = FindWarpsParser.FindWarps(rm, addr, lod.Level);
+                            IEnumerable<Warp> whiteListedWarps = levelWarps.Where(x => x.area == 0xFF);
+                            allWarps.AddRange(whiteListedWarps);
+
+                            List<SM64.Object> levelObjects = FindObjectsParser.FindObjects(rm, addr, lod.Level);
+                            List<SM64.Object> warpingObjects    = levelObjects.Where(x => warpingBehaviours.Contains(x.behaviour)).ToList();
+                            List<SM64.Object> targetWarpObjects = levelObjects.Where(x => targetWarpBehaviours.Contains(x.behaviour)).ToList();
+
+                            // Check if warp object exists
+                            for (int area = 0; area < 7; area++)
+                            {
+                                List<Warp> areaWarps = levelWarps.Where(x => x.area == area).ToList();
+                                if (areaWarps.Count == 0)
+                                    continue;
+
+                                {
+                                    List<SM64.Object> areaObjects = warpingObjects.Where(x => x.area == area).ToList();
+                                    List<Warp> warpingWarps = areaWarps.Where(a => areaObjects.Find(w => w.BParam2 == a.from.id) != null).ToList();
+                                    allWarps.AddRange(warpingWarps);
+                                }
+
+                                {
+                                    List<SM64.Object> areaObjects = targetWarpObjects.Where(x => x.area == area).ToList();
+                                    List<Warp> warpingWarps = areaWarps.Where(a => areaObjects.Find(w => w.BParam2 == a.from.id) != null).ToList();
+                                    targetWarps.AddRange(warpingWarps);
+                                }
+                            }
+                        }
+                        catch (Exception) { }
+                    }                   
+
+                    IEnumerable<Warp> warps = null;
+                    {
+                        // Drop all success/failure/invalid warps
+                        List<Warp> noDeathSuccessWarps = allWarps.Where(x => (x.from.id < 0xF0) & (x.to.id < 0xF0) & (x.to.course != 0x0)).ToList();
+                        List<Warp> validTargets = targetWarps.Where(x => x.from.id != 0xF0).ToList();
+
+                        // Drop warps that does not have target
+                        warps = noDeathSuccessWarps.Where(x => validTargets.Find(w => x.to.id == w.from.id && x.to.course == w.course) != null);
+                    }
+
+                    // Drop all warps that have 
+                    IList<WarpTo> warpsTo = warps.Select(x => x.to).ToList();
+                    Shuffle(warpsTo, seed);
+
+                    IEnumerable<Warp> shuffledWarps = warps.Zip(warpsTo, (warp, to) => new Warp(warp.area, warp.course, warp.from, to, warp.addr));
+
+                    foreach (Warp warp in shuffledWarps)
+                        warp.Write(rm);
+                    
+
+                    //MessageBox.Show("Warps Randomized", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+
+                    if (chkWarpFile.Checked)
+                    {
+                        string path = AppDomain.CurrentDomain.BaseDirectory + romName + " - " + seed.ToString() + ".txt";
+
+                        using (StreamWriter sw = File.CreateText(path))
+                        {
+                            foreach (Warp warp in shuffledWarps)
+                                sw.WriteLine("*Warp Address: " + warp.addr.ToString() + "*  [ From Id: " + warp.from.id.ToString() + " -> To Id: " + warp.to.id.ToString() + " - Course: " + warp.to.course.ToString() + ", Area: " + warp.to.area.ToString() + " ]");
+                        }
+                    }
+                }
+                if (chkRandomizeEnemies.Checked)
+                {
+                    foreach (LevelOffsetsDescription lod in LevelInfo.Description)
+                    {
+                        int addr = lod.LevelScriptEntryPoint;
+                        try
+                        {
+                            IEnumerable<SM64.Object> allObjects = FindObjectsParser.FindObjects(rm, addr, lod.Level).Where(x => x.act != 0);
+
+                            for (int area = 0; area < 8; area++)
+                            {
+                                List<SM64.Object> areaObjects = allObjects.Where(x => x.area == area).ToList();
+                                if (areaObjects.Count == 0)
+                                    continue;
+
+                                IEnumerable<SM64.Object> groundedObjects = areaObjects.Where(x => x.status == ObjectStatus.Grounded);
+                                IList<ObjectPosition> groundedList = groundedObjects.Select(x => x.position).ToList();
+
+                                IEnumerable<SM64.Object> nonGroundedObjects = areaObjects.Where(x => x.status == ObjectStatus.NonGrounded);
+                                IList<ObjectPosition> nonGroundedList = nonGroundedObjects.Select(x => x.position).ToList();
+
+                                Shuffle(groundedList, seed);
+                                Shuffle(nonGroundedList, seed);
+
+                                IEnumerable<SM64.Object> shuffledGroundedObjects = groundedObjects.Zip(groundedList,
+                                    (obj, pos) => new SM64.Object(obj.area, obj.level, obj.act, obj.model, obj.bparams, obj.behaviour, pos, obj.rotation, obj.addr));
+                                IEnumerable<SM64.Object> shuffledNonGroundedObjects = nonGroundedObjects.Zip(nonGroundedList,
+                                    (obj, pos) => new SM64.Object(obj.area, obj.level, obj.act, obj.model, obj.bparams, obj.behaviour, pos, obj.rotation, obj.addr));
+
+                                foreach (SM64.Object obj in shuffledGroundedObjects)
+                                    obj.Write(rm);
+                                foreach (SM64.Object obj in shuffledNonGroundedObjects)
+                                    obj.Write(rm);
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+
+                    //MessageBox.Show("Enemies Randomized", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                if (chkRandomizeMarioClothes.Checked)
+                {
+                    Random colorRandom = new Random(seed);
+
+                    if (pColorOveralls.BackColor != Color.White)
+                    {
+
+                        colorMarioOveralls = pColorOveralls.BackColor;
+                    }
+                    else
+                    {
+                        colorMarioOveralls = Color.FromArgb(colorRandom.Next(256), colorRandom.Next(256), colorRandom.Next(256));
+                        pColorOveralls.BackColor = colorMarioOveralls;
+                    }
+
+                    if (pColorCap.BackColor != Color.White)
+                    {
+                        colorMarioCap = pColorCap.BackColor;
+                    }
+                    else
+                    {
+                        colorMarioCap = Color.FromArgb(colorRandom.Next(256), colorRandom.Next(256), colorRandom.Next(256));
+                        pColorCap.BackColor = colorMarioCap;
+                    }
+
+                    if(chkRandomizeHair.Checked)
+                    {
+                        if (pColorHair.BackColor != Color.White)
+                        {
+                            colorMarioHair = pColorHair.BackColor;
+                        }
+                        else
+                        {
+                            colorMarioHair = Color.FromArgb(colorRandom.Next(256), colorRandom.Next(256), colorRandom.Next(256));
+                            pColorHair.BackColor = colorMarioHair;
+                        }
+                    }                    
+
+                    if(chkRandomizeSkin.Checked)
+                    {
+                        if (pColorFace.BackColor != Color.White)
+                        {
+                            colorMarioFace = pColorFace.BackColor;
+                        }
+                        else
+                        {
+                            colorMarioFace = Color.FromArgb(colorRandom.Next(256), colorRandom.Next(256), colorRandom.Next(256));
+                            pColorFace.BackColor = colorMarioFace;
+                        }
+                    }
+                    
+
+                    if (pColorGloves.BackColor != Color.White)
+                    {
+                        colorMarioGloves = pColorGloves.BackColor;
+                    }
+                    else
+                    {
+                        colorMarioGloves = Color.FromArgb(colorRandom.Next(256), colorRandom.Next(256), colorRandom.Next(256));
+                        pColorGloves.BackColor = colorMarioGloves;
+                    }
+
+                    if (pColorShoes.BackColor != Color.White)
+                    {
+                        colorMarioShoes = pColorShoes.BackColor;
+                    }
+                    else
+                    {
+                        colorMarioShoes = Color.FromArgb(colorRandom.Next(256), colorRandom.Next(256), colorRandom.Next(256));
+                        pColorShoes.BackColor = colorMarioShoes;
+                    }                                       
+
+                    SM64.MarioColor overallObject = new SM64.MarioColor(rm, 0x7EC20, colorMarioOveralls);
+                    overallObject.Write(rm);
+
+                    SM64.MarioColor capObject = new SM64.MarioColor(rm, 0x07EC40, colorMarioCap);
+                    capObject.Write(rm);
+
+                    SM64.MarioColor shoesObject = new SM64.MarioColor(rm, 0x07EC70, colorMarioShoes);
+                    shoesObject.Write(rm);
+
+                    SM64.MarioColor glovesObject = new SM64.MarioColor(rm, 0x07EC50, colorMarioGloves);
+                    glovesObject.Write(rm);
+
+                    if(chkRandomizeSkin.Checked)
+                    {
+                        SM64.MarioColor faceObject = new SM64.MarioColor(rm, 0x07EC98, colorMarioFace);
+                        faceObject.Write(rm);
+                    }
+                    if(chkRandomizeHair.Checked)
+                    {
+                        SM64.MarioColor hairObject = new SM64.MarioColor(rm, 0x07EC80, colorMarioHair);
+                        hairObject.Write(rm);
+                    }
+                                        
+                    //MessageBox.Show("Mario's Clothes Randomized", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                MessageBox.Show("Rom Randomized", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            else
+            {
+                MessageBox.Show("Open a ROM File First!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSaveRom_Click(object sender, EventArgs e)
+        {
+            if(rm != null)
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+                saveFileDialog.Filter = "ROM Files (*.z64)|*.z64";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
+                saveFileDialog.FileName = romName + " - " + seed.ToString();
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    try
+                    {
+                        File.WriteAllBytes(saveFileDialog.FileName, rm.rom);
+                        if(chkWarpPatch.Checked)
+                        {
+                            Patch.FixChksum(saveFileDialog.FileName);
+                        }                        
+                        MessageBox.Show("Your ROM was saved!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    }
+                    catch (IOException)
+                    {
+                        MessageBox.Show("Failed to load!", "-_-", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open a ROM File First!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+    
+        }
+
+        private void btnColorOveralls_Click(object sender, EventArgs e)
+        {
+            DialogResult result = cdClothes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colorMarioOveralls = cdClothes.Color;
+                pColorOveralls.BackColor = cdClothes.Color;
+            }
+        }
+
+        private void btnColorCapArms_Click(object sender, EventArgs e)
+        {
+            DialogResult result = cdClothes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colorMarioCap = cdClothes.Color;
+                pColorCap.BackColor = cdClothes.Color;
+            }
+        }
+
+        private void btnColorGloves_Click(object sender, EventArgs e)
+        {
+            DialogResult result = cdClothes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colorMarioGloves = cdClothes.Color;
+                pColorGloves.BackColor = cdClothes.Color;
+            }
+        }
+
+        private void btnColorShoes_Click(object sender, EventArgs e)
+        {
+            DialogResult result = cdClothes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colorMarioShoes = cdClothes.Color;
+                pColorShoes.BackColor = cdClothes.Color;
+            }
+        }
+
+        private void btnColorFace_Click(object sender, EventArgs e)
+        {
+            DialogResult result = cdClothes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colorMarioFace = cdClothes.Color;
+                pColorFace.BackColor = cdClothes.Color;
+            }
+        }
+
+        private void btnColorHair_Click(object sender, EventArgs e)
+        {
+            DialogResult result = cdClothes.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                colorMarioHair = cdClothes.Color;
+                pColorHair.BackColor = cdClothes.Color;
+            }
+        }
+
+        private void btnColorRestore_Click(object sender, EventArgs e)
+        {
+            colorMarioCap = Color.Empty;
+            pColorCap.BackColor = Color.White;
+
+            colorMarioFace = Color.Empty;
+            pColorFace.BackColor = Color.White;
+
+            colorMarioGloves = Color.Empty;
+            pColorGloves.BackColor = Color.White;
+
+            colorMarioHair = Color.Empty;
+            pColorHair.BackColor = Color.White;
+
+            colorMarioOveralls = Color.Empty;
+            pColorOveralls.BackColor = Color.White;
+
+            colorMarioShoes = Color.Empty;
+            pColorShoes.BackColor = Color.White;
+        }
+
+        private void btnRefreshList_Click(object sender, EventArgs e)
+        {
+            combineLists();
+            if (nudStarAmount.Value <= randomList.Count)
+            {
+                Shuffle(randomList, seed);
+                randomList = randomList.GetRange(0, Convert.ToInt32(nudStarAmount.Value));
+                refreshCheckList();
+            }
+            else
+            {
+                MessageBox.Show("Error: The Number of Stars amount is higher than the Selected Star Set", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnRestoreBehaviours_Click(object sender, EventArgs e)
+        {
+            behavioursWithNames = Properties.Resources.notGrounded.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            SM64.Object.SetNonGroundedBehaviours(behavioursWithNames);
+            lBehaviours.DataSource = behavioursWithNames;
+        }
+
+        private void btnRemoveBehaviour_Click(object sender, EventArgs e)
+        {  
+            if(lBehaviours.Items.Count > 0)
+            {
+                behavioursWithNames.RemoveAt(lBehaviours.SelectedIndex);
+                lBehaviours.DataSource = null;
+                lBehaviours.DataSource = behavioursWithNames;
+                lBehaviours.SelectedIndex = 0;
+            }            
+        }
+
+        private void btnAddBehaviour_Click(object sender, EventArgs e)
+        {            
+            behavioursWithNames.Add(txtNewBehaviour.Text);
+            lBehaviours.DataSource = null;
+            lBehaviours.DataSource = behavioursWithNames;
+            SM64.Object.SetNonGroundedBehaviours(behavioursWithNames);
+        }
+
+        private void btnSaveBehaviours_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+            if (rm != null)
+            {
+                saveFileDialog.FileName = romName + " - Behaviours";
+            }            
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    File.WriteAllLines(saveFileDialog.FileName, behavioursWithNames);
+                    MessageBox.Show("Behaviours saved!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Failed to load!", "-_-", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }          
+        }
+
+        private void btnLoadBehaviours_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    behavioursWithNames = File.ReadAllLines(openFileDialog.FileName).ToList();
+                    lBehaviours.DataSource = null;
+                    lBehaviours.DataSource = behavioursWithNames;
+                    SM64.Object.SetNonGroundedBehaviours(behavioursWithNames);
+                    MessageBox.Show("Behaviours loaded!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Failed to load!", "-_-", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            btnHelp.BackColor = Color.Black;
+            AboutDialog a = new AboutDialog();
+            a.ShowDialog();
+        }
+
+        private void btnHelp_Hover(object sender, EventArgs e)
+        {
+            btnHelp.BackColor = Color.Black;
+        }
+
+        private void btnHelp_Enter(object sender, EventArgs e)
+        {
+            btnHelp.BackColor = Color.Black;
+        }
+
+        private void btnHelp_Down(object sender, EventArgs e)
+        {
+            btnHelp.BackColor = Color.Black;
+        }
+
+        private void btnHelp_MouseDown(object sender, MouseEventArgs e)
+        {
+            btnHelp.BackColor = Color.Black;
+        }
+
+        private void btnSaveWarpList_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+
+            saveFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+            if(rm != null)
+            {
+                saveFileDialog.FileName = romName + " - Warps";
+            }            
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {                    
+                    System.IO.StreamWriter SaveFile = new System.IO.StreamWriter(saveFileDialog.FileName);
+
+                    for (int i = 0; i < chklbWarpList.Items.Count; i++)
+                    {
+                         SaveFile.WriteLine(chklbWarpList.Items[i].ToString() + " : " + (int)chklbWarpList.GetItemCheckState(i));                                   
+                    }                    
+                    SaveFile.Close();
+
+                    MessageBox.Show("Warps saved!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Failed to load!", "-_-", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private void btnLoadWarpList_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            openFileDialog.Filter = "Text Files (*.txt)|*.txt";
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.RestoreDirectory = true;
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    if (System.IO.File.Exists(openFileDialog.FileName))
+                    {
+                        List<int> checks = File.ReadAllLines(openFileDialog.FileName).Select(x => Convert.ToInt32(x.Split(new char[] { ':' })[1].Trim(), 16)).ToList();
+
+                        for (int i = 0; i < chklbWarpList.Items.Count; i++)
+                        {                            
+                            chklbWarpList.SetItemCheckState(i, (CheckState)checks[i]);
+                        }
+                    }
+                    MessageBox.Show("Warps loaded!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                }
+                catch (IOException)
+                {
+                    MessageBox.Show("Failed to load!", "-_-", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+            }
+        }
+
+        private void btnRestoreWarps_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < chklbWarpList.Items.Count; i++)
+            {
+                chklbWarpList.SetItemChecked(i, true);
+            }
+        }        
     }
 }

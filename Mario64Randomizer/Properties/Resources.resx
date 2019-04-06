@@ -121,7 +121,25 @@
   <data name="blueStar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\blueStar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="groundedBehaviours" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\groundedbehaviours.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="help" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\help.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="notGrounded" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\notgrounded.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="star" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\images\star.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="targetWarps" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\targetwarps.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="warpBehaviours" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\warpbehaviours.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

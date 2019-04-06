@@ -1,0 +1,96 @@
+130000AC : Eye ball bullet
+13000494 : Aquarium Fish Group
+13000528 : Chuckya Behavior
+13000600 : Bullet Bill Cannon Behav
+130007F8 : Star
+1300080C : Star (100cc?)
+13000830 : Blue Coin (big goomba)
+13000888 : Yellow coin (Boo)
+1300090C : One Coin
+1300091C : Collectable Coin
+13000964 : Three yellow coins
+13000984 : Ten yellow coins
+130009A4 : Yellow coin
+13000B58 : Grindel Behavior
+13000B8C : Thwomp Behavior 2
+13000BC8 : Thwomp Behavior
+13001108 : Flame Thrower Behavior
+130012B4 : SpinDrift Behavior
+130014E0 : Breakable Box
+13001518 : Pushable
+13001548 : Heave-Ho Behavior
+13001650 : Jumping Box
+1300179C : Bullet Bill Behav
+13001F90 : Tox Box
+13001FBC : Piranha Plant Behav 2
+130020E8 : Small Penguin
+1300213C : Fish Group
+1300214C : Fish group
+1300215C : Fish Group Behavior
+130021E4 : Chirp Chirp
+1300220C : Bub
+13002250 : [!] Box Behavior
+13002338 : Sushi
+13002710 : Boo's Behavior
+13002768 : Patrolling Boo Buddy
+13002790 : Boo Buddy behavior
+130027E4 : Boo Buddy 3 Behavior
+13002804 : Boo Buddy 2 Behavior
+13002AA4 : Tree Behavior
+13002B5C : Scutlebug Behavior
+13002BCC : Small Whomp
+13003068 : Yellow coin (bobomb)
+130030A4 : Blue Coin (Moving)
+130030D4 : Blue Coin (Sliding)
+13003104 : Blue Coin (Tossed in Air)
+13003354 : Amp 2 Behavior
+13003388 : Amp Behavior
+130033BC : Butterfly Behav
+130033EC : Owl Behavior
+1300362C : Small Bully Behavior
+130036C8 : Small ice bully
+130037EC : Bowser Bomb Behavior
+130039D4 : Moneybag Behav
+13003B00 : Spindel Behavior
+13003E3C : Star
+13003E64 : Star Spawner
+13003E8C : Hidden Red Coin Star Behavior
+13003EAC : Red Coin Behavior
+13003EFC : Hidden Star
+13003FDC : 1-up slow
+13004010 : 1-up fast
+13004044 : Sliding 1-up
+1300407C : 1-up!
+130040EC : Hidden 1-up
+13004124 : Hidden 1-up Trigger
+13004148 : 1-up homes in on Mario
+130041A4 : Hidden 1-up in Tree
+13004218 : Breakable Box
+130044FC : MIPS Rabbit Behavior
+13004538 : Yoshi behavior
+13004634 : Pokey Behavior
+13004698 : Bat Behavior
+130046DC : Fly Guy Behavior
+1300472C : Goomba Walk
+1300478C : Chain Chomp
+13004918 : Evil Lakitu Behavior
+13004954 : Lakitu Behavior
+130049C8 : Spiny
+13004A00 : Monty Mole Behavior
+13004A58 : Monty Mole in Hole
+13004A78 : Dirty Monty Mole throws
+13004DBC : Mr. Blizzard
+13004EF8 : Recover Heart
+13004F90 : Dorrie
+13005024 : Mad Piano Behavior
+1300506C : Flying Bookend
+13005120 : Piranha Plant Behavior
+1300518C : Fire Spewer Behavior
+130051E0 : Snufit Behavior
+1300521C : Snifit Bullet
+1300525C : Grindel Behavior
+13005354 : Multiple Birds flying
+13005440 : Clam Shell Behav
+13005468 : Skeeter Behavior
+13005598 : Butterfly Behavior
+130055DC : Bubba Behavior
