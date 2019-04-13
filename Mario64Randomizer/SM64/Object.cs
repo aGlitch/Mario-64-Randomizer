@@ -82,7 +82,7 @@ namespace Mario64Randomizer.SM64
             nonGroundedBehaviours = behaviours.Select(x => Convert.ToInt32(x.Split(new char[] { ':' })[0].Trim(), 16)).ToList();
         }
 
-public byte BParam1 { get { return (byte)((bparams & 0xFF000000) >> 24); } }
+        public byte BParam1 { get { return (byte)((bparams & 0xFF000000) >> 24); } }
         public byte BParam2 { get { return (byte)((bparams & 0x00FF0000) >> 16); } }
 
         public ObjectStatus status
@@ -90,19 +90,52 @@ public byte BParam1 { get { return (byte)((bparams & 0xFF000000) >> 24); } }
             get
             {
                 if (groundedBehaviours.Contains(behaviour))
-                    return ObjectStatus.Grounded;
+                {
+                    return ObjectStatus.Grounded;                    
+                }
+                    
 
                 if (nonGroundedBehaviours.Contains(behaviour))
-                    return ObjectStatus.NonGrounded;
-
-                if (behaviour == 0x130008EC)
                 {
-                    if (BParam2 >= 16) // flying coins behaviour
+                    // [!] box
+                    if (behaviour == 0x13002250)
+                    {
+                        if (BParam2 <= 3) // caps + shell
+                            return ObjectStatus.Unknown;
+                        else
+                            return ObjectStatus.NonGrounded;
+                    }
+                    else if (behaviour == 0x130008EC)
+                    {
+                        if (BParam2 >= 16) // flying coins behaviour
+                        {
+                            return ObjectStatus.NonGrounded;
+                        }
+                        else
+                        {
+                            return ObjectStatus.Grounded;
+                        }
+                    }
+                    else if (behaviour == 0x13005120) // Piranha flower
+                    {
+                        if (BParam2 == 1)
+                            return ObjectStatus.Unknown;
+                        else
+                            return ObjectStatus.NonGrounded;
+                    }
+                    else if (behaviour == 0x13000054) // Eyeball
+                    {
+                        if (BParam2 == 1)
+                            return ObjectStatus.Unknown;
+                        else
+                            return ObjectStatus.NonGrounded;
+                    }
+                    else
+                    {
                         return ObjectStatus.NonGrounded;
-                    else // other coins behaviours that are put to ground
-                        return ObjectStatus.Grounded;
-                }
+                    }
 
+                }
                 return ObjectStatus.Unknown;
             }
         }

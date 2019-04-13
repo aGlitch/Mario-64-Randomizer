@@ -1,3 +1,4 @@
+13000054 : Eye ball
 130000AC : Eye ball bullet
 13000494 : Aquarium Fish Group
 13000528 : Chuckya Behavior
@@ -5,6 +6,7 @@
 130007F8 : Star
 1300080C : Star (100cc?)
 13000830 : Blue Coin (big goomba)
+130008EC : Coin Formation
 13000888 : Yellow coin (Boo)
 1300090C : One Coin
 1300091C : Collectable Coin
@@ -16,8 +18,6 @@
 13000BC8 : Thwomp Behavior
 13001108 : Flame Thrower Behavior
 130012B4 : SpinDrift Behavior
-130014E0 : Breakable Box
-13001518 : Pushable
 13001548 : Heave-Ho Behavior
 13001650 : Jumping Box
 1300179C : Bullet Bill Behav
@@ -29,7 +29,7 @@
 1300215C : Fish Group Behavior
 130021E4 : Chirp Chirp
 1300220C : Bub
-13002250 : [!] Box Behavior
+13002250 : [!] Box
 13002338 : Sushi
 13002710 : Boo's Behavior
 13002768 : Patrolling Boo Buddy
@@ -84,7 +84,7 @@
 13004F90 : Dorrie
 13005024 : Mad Piano Behavior
 1300506C : Flying Bookend
-13005120 : Piranha Plant Behavior
+13005120 : Pirahna Flower
 1300518C : Fire Spewer Behavior
 130051E0 : Snufit Behavior
 1300521C : Snifit Bullet

@@ -46,19 +46,20 @@
             this.lblNumberOfStars = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabWarps = new System.Windows.Forms.TabPage();
-            this.btnLoadWarpList = new System.Windows.Forms.Button();
-            this.btnSaveWarpList = new System.Windows.Forms.Button();
+            this.chkRandomizeHubs = new System.Windows.Forms.CheckBox();
+            this.chkBoxMixWarps = new System.Windows.Forms.CheckBox();
+            this.chkRandomizeInsideWarps = new System.Windows.Forms.CheckBox();
             this.btnRestoreWarps = new System.Windows.Forms.Button();
             this.chklbWarpList = new System.Windows.Forms.CheckedListBox();
             this.chkWarpFile = new System.Windows.Forms.CheckBox();
-            this.tabEnemies = new System.Windows.Forms.TabPage();
-            this.txtNewBehaviour = new System.Windows.Forms.TextBox();
-            this.btnLoadBehaviours = new System.Windows.Forms.Button();
-            this.btnSaveBehaviours = new System.Windows.Forms.Button();
-            this.btnRestoreBehaviours = new System.Windows.Forms.Button();
-            this.btnAddBehaviour = new System.Windows.Forms.Button();
-            this.btnRemoveBehaviour = new System.Windows.Forms.Button();
-            this.lBehaviours = new System.Windows.Forms.ListBox();
+            this.tabObjects = new System.Windows.Forms.TabPage();
+            this.btnRestoreAllBehaviours = new System.Windows.Forms.Button();
+            this.btnLoadAllBehav = new System.Windows.Forms.Button();
+            this.btnSaveAllBehav = new System.Windows.Forms.Button();
+            this.btnRemoveObjectAddress = new System.Windows.Forms.Button();
+            this.btnEditWarpObjects = new System.Windows.Forms.Button();
+            this.btnEditGroundedObjects = new System.Windows.Forms.Button();
+            this.btnEditNonGrounded = new System.Windows.Forms.Button();
             this.tabClothes = new System.Windows.Forms.TabPage();
             this.chkRandomizeHair = new System.Windows.Forms.CheckBox();
             this.chkRandomizeSkin = new System.Windows.Forms.CheckBox();
@@ -77,23 +78,23 @@
             this.btnColorRestore = new System.Windows.Forms.Button();
             this.tabSequence = new System.Windows.Forms.TabPage();
             this.btnRefreshList = new System.Windows.Forms.Button();
+            this.tabMisc = new System.Windows.Forms.TabPage();
+            this.chkWarpPatch = new System.Windows.Forms.CheckBox();
             this.chkRandomizeText = new System.Windows.Forms.CheckBox();
             this.btnSaveRom = new System.Windows.Forms.Button();
             this.btnRandomize = new System.Windows.Forms.Button();
             this.btnOpenRom = new System.Windows.Forms.Button();
-            this.chkRandomizeEnemies = new System.Windows.Forms.CheckBox();
+            this.chkRandomizeObjects = new System.Windows.Forms.CheckBox();
             this.chkRandomizeMarioClothes = new System.Windows.Forms.CheckBox();
             this.chkRandomizeMusic = new System.Windows.Forms.CheckBox();
             this.chkRandomizeWarps = new System.Windows.Forms.CheckBox();
             this.cdClothes = new System.Windows.Forms.ColorDialog();
             this.btnHelp = new System.Windows.Forms.Button();
-            this.tabMisc = new System.Windows.Forms.TabPage();
-            this.chkWarpPatch = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStarAmount)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabWarps.SuspendLayout();
-            this.tabEnemies.SuspendLayout();
+            this.tabObjects.SuspendLayout();
             this.tabClothes.SuspendLayout();
             this.tabSequence.SuspendLayout();
             this.tabMisc.SuspendLayout();
@@ -264,7 +265,7 @@
             this.lvStars.MinimumSize = new System.Drawing.Size(250, 150);
             this.lvStars.MultiSelect = false;
             this.lvStars.Name = "lvStars";
-            this.lvStars.Size = new System.Drawing.Size(318, 215);
+            this.lvStars.Size = new System.Drawing.Size(318, 207);
             this.lvStars.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.lvStars.TabIndex = 28;
             this.lvStars.TileSize = new System.Drawing.Size(220, 30);
@@ -312,21 +313,22 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabWarps);
-            this.tabControl1.Controls.Add(this.tabEnemies);
+            this.tabControl1.Controls.Add(this.tabObjects);
             this.tabControl1.Controls.Add(this.tabClothes);
             this.tabControl1.Controls.Add(this.tabSequence);
             this.tabControl1.Controls.Add(this.tabMisc);
-            this.tabControl1.Location = new System.Drawing.Point(30, 118);
+            this.tabControl1.Location = new System.Drawing.Point(30, 129);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(344, 348);
+            this.tabControl1.Size = new System.Drawing.Size(344, 340);
             this.tabControl1.TabIndex = 33;
             // 
             // tabWarps
             // 
             this.tabWarps.BackColor = System.Drawing.Color.Black;
-            this.tabWarps.Controls.Add(this.btnLoadWarpList);
-            this.tabWarps.Controls.Add(this.btnSaveWarpList);
+            this.tabWarps.Controls.Add(this.chkRandomizeHubs);
+            this.tabWarps.Controls.Add(this.chkBoxMixWarps);
+            this.tabWarps.Controls.Add(this.chkRandomizeInsideWarps);
             this.tabWarps.Controls.Add(this.btnRestoreWarps);
             this.tabWarps.Controls.Add(this.chklbWarpList);
             this.tabWarps.Controls.Add(this.chkWarpFile);
@@ -334,35 +336,39 @@
             this.tabWarps.Location = new System.Drawing.Point(4, 22);
             this.tabWarps.Name = "tabWarps";
             this.tabWarps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabWarps.Size = new System.Drawing.Size(336, 322);
+            this.tabWarps.Size = new System.Drawing.Size(336, 314);
             this.tabWarps.TabIndex = 5;
             this.tabWarps.Text = "Warps";
             // 
-            // btnLoadWarpList
+            // chkRandomizeHubs
             // 
-            this.btnLoadWarpList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnLoadWarpList.FlatAppearance.BorderSize = 0;
-            this.btnLoadWarpList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadWarpList.Location = new System.Drawing.Point(94, 41);
-            this.btnLoadWarpList.Name = "btnLoadWarpList";
-            this.btnLoadWarpList.Size = new System.Drawing.Size(40, 25);
-            this.btnLoadWarpList.TabIndex = 10;
-            this.btnLoadWarpList.Text = "Load Behaviours";
-            this.btnLoadWarpList.UseVisualStyleBackColor = false;
-            this.btnLoadWarpList.Click += new System.EventHandler(this.btnLoadWarpList_Click);
+            this.chkRandomizeHubs.AutoSize = true;
+            this.chkRandomizeHubs.Location = new System.Drawing.Point(6, 42);
+            this.chkRandomizeHubs.Name = "chkRandomizeHubs";
+            this.chkRandomizeHubs.Size = new System.Drawing.Size(107, 17);
+            this.chkRandomizeHubs.TabIndex = 13;
+            this.chkRandomizeHubs.Text = "Randomize Hubs";
+            this.chkRandomizeHubs.UseVisualStyleBackColor = true;
             // 
-            // btnSaveWarpList
+            // chkBoxMixWarps
             // 
-            this.btnSaveWarpList.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnSaveWarpList.FlatAppearance.BorderSize = 0;
-            this.btnSaveWarpList.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveWarpList.Location = new System.Drawing.Point(48, 41);
-            this.btnSaveWarpList.Name = "btnSaveWarpList";
-            this.btnSaveWarpList.Size = new System.Drawing.Size(40, 25);
-            this.btnSaveWarpList.TabIndex = 9;
-            this.btnSaveWarpList.Text = "Save Behaviours";
-            this.btnSaveWarpList.UseVisualStyleBackColor = false;
-            this.btnSaveWarpList.Click += new System.EventHandler(this.btnSaveWarpList_Click);
+            this.chkBoxMixWarps.AutoSize = true;
+            this.chkBoxMixWarps.Location = new System.Drawing.Point(119, 42);
+            this.chkBoxMixWarps.Name = "chkBoxMixWarps";
+            this.chkBoxMixWarps.Size = new System.Drawing.Size(136, 17);
+            this.chkBoxMixWarps.TabIndex = 12;
+            this.chkBoxMixWarps.Text = "Inside + Outside Warps";
+            this.chkBoxMixWarps.UseVisualStyleBackColor = true;
+            // 
+            // chkRandomizeInsideWarps
+            // 
+            this.chkRandomizeInsideWarps.AutoSize = true;
+            this.chkRandomizeInsideWarps.Location = new System.Drawing.Point(119, 19);
+            this.chkRandomizeInsideWarps.Name = "chkRandomizeInsideWarps";
+            this.chkRandomizeInsideWarps.Size = new System.Drawing.Size(88, 17);
+            this.chkRandomizeInsideWarps.TabIndex = 11;
+            this.chkRandomizeInsideWarps.Text = "Inside Warps";
+            this.chkRandomizeInsideWarps.UseVisualStyleBackColor = true;
             // 
             // btnRestoreWarps
             // 
@@ -372,7 +378,7 @@
             this.btnRestoreWarps.FlatAppearance.BorderSize = 0;
             this.btnRestoreWarps.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRestoreWarps.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRestoreWarps.Location = new System.Drawing.Point(262, 41);
+            this.btnRestoreWarps.Location = new System.Drawing.Point(305, 34);
             this.btnRestoreWarps.Name = "btnRestoreWarps";
             this.btnRestoreWarps.Size = new System.Drawing.Size(25, 25);
             this.btnRestoreWarps.TabIndex = 8;
@@ -405,7 +411,7 @@
             "Course 13",
             "Course 14",
             "Course 15",
-            "Bowser 1",
+            "Bowser Course 1",
             "Bowser Battle 1",
             "Bowser Course 2",
             "Bowser Battle 2",
@@ -415,138 +421,142 @@
             "Metal Cap",
             "Wing Cap",
             "Vanish Cap",
-            "Rainbow",
-            "Aquarium",
+            "Mario Wings Over the Rainbow",
+            "Secret Aquarium",
             "\"The End\"",
             "Castle Grounds",
             "Inside Castle",
             "Castle Courtyard"});
-            this.chklbWarpList.Location = new System.Drawing.Point(48, 76);
+            this.chklbWarpList.Location = new System.Drawing.Point(6, 64);
             this.chklbWarpList.Name = "chklbWarpList";
-            this.chklbWarpList.Size = new System.Drawing.Size(239, 225);
+            this.chklbWarpList.Size = new System.Drawing.Size(324, 242);
             this.chklbWarpList.TabIndex = 7;
             // 
             // chkWarpFile
             // 
             this.chkWarpFile.AutoSize = true;
-            this.chkWarpFile.Location = new System.Drawing.Point(48, 19);
+            this.chkWarpFile.Location = new System.Drawing.Point(6, 19);
             this.chkWarpFile.Name = "chkWarpFile";
             this.chkWarpFile.Size = new System.Drawing.Size(106, 17);
             this.chkWarpFile.TabIndex = 3;
             this.chkWarpFile.Text = "Output Warp File";
             this.chkWarpFile.UseVisualStyleBackColor = true;
             // 
-            // tabEnemies
+            // tabObjects
             // 
-            this.tabEnemies.BackColor = System.Drawing.Color.Black;
-            this.tabEnemies.Controls.Add(this.txtNewBehaviour);
-            this.tabEnemies.Controls.Add(this.btnLoadBehaviours);
-            this.tabEnemies.Controls.Add(this.btnSaveBehaviours);
-            this.tabEnemies.Controls.Add(this.btnRestoreBehaviours);
-            this.tabEnemies.Controls.Add(this.btnAddBehaviour);
-            this.tabEnemies.Controls.Add(this.btnRemoveBehaviour);
-            this.tabEnemies.Controls.Add(this.lBehaviours);
-            this.tabEnemies.ForeColor = System.Drawing.SystemColors.Control;
-            this.tabEnemies.Location = new System.Drawing.Point(4, 22);
-            this.tabEnemies.Name = "tabEnemies";
-            this.tabEnemies.Size = new System.Drawing.Size(336, 322);
-            this.tabEnemies.TabIndex = 6;
-            this.tabEnemies.Text = "Enemies";
+            this.tabObjects.BackColor = System.Drawing.Color.Black;
+            this.tabObjects.Controls.Add(this.btnRestoreAllBehaviours);
+            this.tabObjects.Controls.Add(this.btnRemoveObjectAddress);
+            this.tabObjects.Controls.Add(this.btnEditWarpObjects);
+            this.tabObjects.Controls.Add(this.btnEditGroundedObjects);
+            this.tabObjects.Controls.Add(this.btnEditNonGrounded);
+            this.tabObjects.ForeColor = System.Drawing.SystemColors.Control;
+            this.tabObjects.Location = new System.Drawing.Point(4, 22);
+            this.tabObjects.Name = "tabObjects";
+            this.tabObjects.Size = new System.Drawing.Size(336, 314);
+            this.tabObjects.TabIndex = 6;
+            this.tabObjects.Text = "Objects";
             // 
-            // txtNewBehaviour
+            // btnRestoreAllBehaviours
             // 
-            this.txtNewBehaviour.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(18)))), ((int)(((byte)(18)))), ((int)(((byte)(18)))));
-            this.txtNewBehaviour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtNewBehaviour.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtNewBehaviour.ForeColor = System.Drawing.SystemColors.Menu;
-            this.txtNewBehaviour.Location = new System.Drawing.Point(98, 16);
-            this.txtNewBehaviour.Name = "txtNewBehaviour";
-            this.txtNewBehaviour.Size = new System.Drawing.Size(94, 24);
-            this.txtNewBehaviour.TabIndex = 8;
+            this.btnRestoreAllBehaviours.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
+            this.btnRestoreAllBehaviours.BackgroundImage = global::Mario64Randomizer.Properties.Resources.refresh;
+            this.btnRestoreAllBehaviours.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRestoreAllBehaviours.FlatAppearance.BorderSize = 0;
+            this.btnRestoreAllBehaviours.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRestoreAllBehaviours.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnRestoreAllBehaviours.Location = new System.Drawing.Point(282, 14);
+            this.btnRestoreAllBehaviours.Name = "btnRestoreAllBehaviours";
+            this.btnRestoreAllBehaviours.Size = new System.Drawing.Size(25, 25);
+            this.btnRestoreAllBehaviours.TabIndex = 15;
+            this.btnRestoreAllBehaviours.UseVisualStyleBackColor = false;
+            this.btnRestoreAllBehaviours.Click += new System.EventHandler(this.btnRestoreBehaviours_Click);
             // 
-            // btnLoadBehaviours
+            // btnLoadAllBehav
             // 
-            this.btnLoadBehaviours.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnLoadBehaviours.FlatAppearance.BorderSize = 0;
-            this.btnLoadBehaviours.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLoadBehaviours.Location = new System.Drawing.Point(276, 16);
-            this.btnLoadBehaviours.Name = "btnLoadBehaviours";
-            this.btnLoadBehaviours.Size = new System.Drawing.Size(40, 25);
-            this.btnLoadBehaviours.TabIndex = 7;
-            this.btnLoadBehaviours.Text = "Load Behaviours";
-            this.btnLoadBehaviours.UseVisualStyleBackColor = false;
-            this.btnLoadBehaviours.Click += new System.EventHandler(this.btnLoadBehaviours_Click);
+            this.btnLoadAllBehav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.btnLoadAllBehav.FlatAppearance.BorderSize = 0;
+            this.btnLoadAllBehav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadAllBehav.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnLoadAllBehav.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnLoadAllBehav.Location = new System.Drawing.Point(274, 98);
+            this.btnLoadAllBehav.Name = "btnLoadAllBehav";
+            this.btnLoadAllBehav.Size = new System.Drawing.Size(100, 25);
+            this.btnLoadAllBehav.TabIndex = 14;
+            this.btnLoadAllBehav.Text = "Load Config";
+            this.btnLoadAllBehav.UseVisualStyleBackColor = false;
+            this.btnLoadAllBehav.Click += new System.EventHandler(this.btnLoadAllBehav_Click);
             // 
-            // btnSaveBehaviours
+            // btnSaveAllBehav
             // 
-            this.btnSaveBehaviours.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnSaveBehaviours.FlatAppearance.BorderSize = 0;
-            this.btnSaveBehaviours.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSaveBehaviours.Location = new System.Drawing.Point(230, 16);
-            this.btnSaveBehaviours.Name = "btnSaveBehaviours";
-            this.btnSaveBehaviours.Size = new System.Drawing.Size(40, 25);
-            this.btnSaveBehaviours.TabIndex = 6;
-            this.btnSaveBehaviours.Text = "Save Behaviours";
-            this.btnSaveBehaviours.UseVisualStyleBackColor = false;
-            this.btnSaveBehaviours.Click += new System.EventHandler(this.btnSaveBehaviours_Click);
+            this.btnSaveAllBehav.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.btnSaveAllBehav.FlatAppearance.BorderSize = 0;
+            this.btnSaveAllBehav.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSaveAllBehav.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.btnSaveAllBehav.ForeColor = System.Drawing.SystemColors.Control;
+            this.btnSaveAllBehav.Location = new System.Drawing.Point(274, 70);
+            this.btnSaveAllBehav.Name = "btnSaveAllBehav";
+            this.btnSaveAllBehav.Size = new System.Drawing.Size(100, 25);
+            this.btnSaveAllBehav.TabIndex = 13;
+            this.btnSaveAllBehav.Text = "Save Config";
+            this.btnSaveAllBehav.UseVisualStyleBackColor = false;
+            this.btnSaveAllBehav.Click += new System.EventHandler(this.btnSaveAllBehav_Click);
             // 
-            // btnRestoreBehaviours
+            // btnRemoveObjectAddress
             // 
-            this.btnRestoreBehaviours.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(36)))), ((int)(((byte)(36)))), ((int)(((byte)(36)))));
-            this.btnRestoreBehaviours.BackgroundImage = global::Mario64Randomizer.Properties.Resources.refresh;
-            this.btnRestoreBehaviours.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRestoreBehaviours.FlatAppearance.BorderSize = 0;
-            this.btnRestoreBehaviours.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRestoreBehaviours.ForeColor = System.Drawing.SystemColors.Control;
-            this.btnRestoreBehaviours.Location = new System.Drawing.Point(198, 16);
-            this.btnRestoreBehaviours.Name = "btnRestoreBehaviours";
-            this.btnRestoreBehaviours.Size = new System.Drawing.Size(25, 25);
-            this.btnRestoreBehaviours.TabIndex = 4;
-            this.btnRestoreBehaviours.UseVisualStyleBackColor = false;
-            this.btnRestoreBehaviours.Click += new System.EventHandler(this.btnRestoreBehaviours_Click);
+            this.btnRemoveObjectAddress.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.btnRemoveObjectAddress.FlatAppearance.BorderSize = 0;
+            this.btnRemoveObjectAddress.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveObjectAddress.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnRemoveObjectAddress.Location = new System.Drawing.Point(25, 138);
+            this.btnRemoveObjectAddress.Name = "btnRemoveObjectAddress";
+            this.btnRemoveObjectAddress.Size = new System.Drawing.Size(282, 25);
+            this.btnRemoveObjectAddress.TabIndex = 12;
+            this.btnRemoveObjectAddress.Text = "Remove Object Address";
+            this.btnRemoveObjectAddress.UseVisualStyleBackColor = false;
+            this.btnRemoveObjectAddress.Click += new System.EventHandler(this.btnRemoveObjectAddress_Click);
             // 
-            // btnAddBehaviour
+            // btnEditWarpObjects
             // 
-            this.btnAddBehaviour.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            this.btnAddBehaviour.FlatAppearance.BorderSize = 0;
-            this.btnAddBehaviour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAddBehaviour.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnAddBehaviour.Location = new System.Drawing.Point(25, 16);
-            this.btnAddBehaviour.Name = "btnAddBehaviour";
-            this.btnAddBehaviour.Size = new System.Drawing.Size(30, 25);
-            this.btnAddBehaviour.TabIndex = 3;
-            this.btnAddBehaviour.Text = "+";
-            this.btnAddBehaviour.UseVisualStyleBackColor = false;
-            this.btnAddBehaviour.Click += new System.EventHandler(this.btnAddBehaviour_Click);
+            this.btnEditWarpObjects.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.btnEditWarpObjects.FlatAppearance.BorderSize = 0;
+            this.btnEditWarpObjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditWarpObjects.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnEditWarpObjects.Location = new System.Drawing.Point(25, 107);
+            this.btnEditWarpObjects.Name = "btnEditWarpObjects";
+            this.btnEditWarpObjects.Size = new System.Drawing.Size(282, 25);
+            this.btnEditWarpObjects.TabIndex = 11;
+            this.btnEditWarpObjects.Text = "Edit Warp Objects";
+            this.btnEditWarpObjects.UseVisualStyleBackColor = false;
+            this.btnEditWarpObjects.Click += new System.EventHandler(this.btnEditWarpObjects_Click);
             // 
-            // btnRemoveBehaviour
+            // btnEditGroundedObjects
             // 
-            this.btnRemoveBehaviour.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
-            this.btnRemoveBehaviour.FlatAppearance.BorderSize = 0;
-            this.btnRemoveBehaviour.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRemoveBehaviour.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btnRemoveBehaviour.Location = new System.Drawing.Point(61, 16);
-            this.btnRemoveBehaviour.Name = "btnRemoveBehaviour";
-            this.btnRemoveBehaviour.Size = new System.Drawing.Size(30, 25);
-            this.btnRemoveBehaviour.TabIndex = 2;
-            this.btnRemoveBehaviour.Text = "-";
-            this.btnRemoveBehaviour.UseVisualStyleBackColor = false;
-            this.btnRemoveBehaviour.Click += new System.EventHandler(this.btnRemoveBehaviour_Click);
+            this.btnEditGroundedObjects.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.btnEditGroundedObjects.FlatAppearance.BorderSize = 0;
+            this.btnEditGroundedObjects.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditGroundedObjects.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnEditGroundedObjects.Location = new System.Drawing.Point(25, 76);
+            this.btnEditGroundedObjects.Name = "btnEditGroundedObjects";
+            this.btnEditGroundedObjects.Size = new System.Drawing.Size(282, 25);
+            this.btnEditGroundedObjects.TabIndex = 10;
+            this.btnEditGroundedObjects.Text = "Edit Grounded Objects";
+            this.btnEditGroundedObjects.UseVisualStyleBackColor = false;
+            this.btnEditGroundedObjects.Click += new System.EventHandler(this.btnEditGroundedObjects_Click);
             // 
-            // lBehaviours
+            // btnEditNonGrounded
             // 
-            this.lBehaviours.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lBehaviours.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(39)))), ((int)(((byte)(39)))));
-            this.lBehaviours.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lBehaviours.ForeColor = System.Drawing.SystemColors.MenuBar;
-            this.lBehaviours.FormattingEnabled = true;
-            this.lBehaviours.ItemHeight = 16;
-            this.lBehaviours.Location = new System.Drawing.Point(25, 48);
-            this.lBehaviours.Name = "lBehaviours";
-            this.lBehaviours.Size = new System.Drawing.Size(291, 260);
-            this.lBehaviours.TabIndex = 0;
+            this.btnEditNonGrounded.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(56)))), ((int)(((byte)(56)))));
+            this.btnEditNonGrounded.FlatAppearance.BorderSize = 0;
+            this.btnEditNonGrounded.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEditNonGrounded.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btnEditNonGrounded.Location = new System.Drawing.Point(25, 45);
+            this.btnEditNonGrounded.Name = "btnEditNonGrounded";
+            this.btnEditNonGrounded.Size = new System.Drawing.Size(282, 25);
+            this.btnEditNonGrounded.TabIndex = 9;
+            this.btnEditNonGrounded.Text = "Edit Non Grounded Objects";
+            this.btnEditNonGrounded.UseVisualStyleBackColor = false;
+            this.btnEditNonGrounded.Click += new System.EventHandler(this.button1_Click);
             // 
             // tabClothes
             // 
@@ -569,7 +579,7 @@
             this.tabClothes.ForeColor = System.Drawing.SystemColors.Control;
             this.tabClothes.Location = new System.Drawing.Point(4, 22);
             this.tabClothes.Name = "tabClothes";
-            this.tabClothes.Size = new System.Drawing.Size(336, 322);
+            this.tabClothes.Size = new System.Drawing.Size(336, 314);
             this.tabClothes.TabIndex = 3;
             this.tabClothes.Text = "Mario\'s Clothes";
             // 
@@ -771,7 +781,7 @@
             this.tabSequence.Location = new System.Drawing.Point(4, 22);
             this.tabSequence.Name = "tabSequence";
             this.tabSequence.Padding = new System.Windows.Forms.Padding(3);
-            this.tabSequence.Size = new System.Drawing.Size(336, 322);
+            this.tabSequence.Size = new System.Drawing.Size(336, 314);
             this.tabSequence.TabIndex = 0;
             this.tabSequence.Text = "Sequence (Vanilla)";
             // 
@@ -788,6 +798,32 @@
             this.btnRefreshList.TabIndex = 42;
             this.btnRefreshList.UseVisualStyleBackColor = false;
             this.btnRefreshList.Click += new System.EventHandler(this.btnRefreshList_Click);
+            // 
+            // tabMisc
+            // 
+            this.tabMisc.BackColor = System.Drawing.Color.Black;
+            this.tabMisc.Controls.Add(this.btnHelp);
+            this.tabMisc.Controls.Add(this.chkWarpPatch);
+            this.tabMisc.Controls.Add(this.chkRandomizeText);
+            this.tabMisc.Location = new System.Drawing.Point(4, 22);
+            this.tabMisc.Name = "tabMisc";
+            this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
+            this.tabMisc.Size = new System.Drawing.Size(336, 314);
+            this.tabMisc.TabIndex = 7;
+            this.tabMisc.Text = "Misc";
+            // 
+            // chkWarpPatch
+            // 
+            this.chkWarpPatch.AutoSize = true;
+            this.chkWarpPatch.Checked = true;
+            this.chkWarpPatch.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkWarpPatch.ForeColor = System.Drawing.Color.White;
+            this.chkWarpPatch.Location = new System.Drawing.Point(18, 26);
+            this.chkWarpPatch.Name = "chkWarpPatch";
+            this.chkWarpPatch.Size = new System.Drawing.Size(123, 17);
+            this.chkWarpPatch.TabIndex = 42;
+            this.chkWarpPatch.Text = "Patch Fading Warps";
+            this.chkWarpPatch.UseVisualStyleBackColor = true;
             // 
             // chkRandomizeText
             // 
@@ -814,7 +850,7 @@
             this.btnSaveRom.Name = "btnSaveRom";
             this.btnSaveRom.Size = new System.Drawing.Size(100, 25);
             this.btnSaveRom.TabIndex = 5;
-            this.btnSaveRom.Text = "Save Rom";
+            this.btnSaveRom.Text = "3- Save Rom";
             this.btnSaveRom.UseVisualStyleBackColor = false;
             this.btnSaveRom.Click += new System.EventHandler(this.btnSaveRom_Click);
             // 
@@ -830,7 +866,7 @@
             this.btnRandomize.Name = "btnRandomize";
             this.btnRandomize.Size = new System.Drawing.Size(100, 25);
             this.btnRandomize.TabIndex = 4;
-            this.btnRandomize.Text = "Randomize";
+            this.btnRandomize.Text = "2- Randomize";
             this.btnRandomize.UseVisualStyleBackColor = false;
             this.btnRandomize.Click += new System.EventHandler(this.btnRandomize_Click);
             // 
@@ -846,22 +882,22 @@
             this.btnOpenRom.Name = "btnOpenRom";
             this.btnOpenRom.Size = new System.Drawing.Size(100, 25);
             this.btnOpenRom.TabIndex = 3;
-            this.btnOpenRom.Text = "Open Rom";
+            this.btnOpenRom.Text = "1- Open Rom";
             this.btnOpenRom.UseVisualStyleBackColor = false;
             this.btnOpenRom.Click += new System.EventHandler(this.btnOpenRom_Click);
             // 
-            // chkRandomizeEnemies
+            // chkRandomizeObjects
             // 
-            this.chkRandomizeEnemies.AutoSize = true;
-            this.chkRandomizeEnemies.Checked = true;
-            this.chkRandomizeEnemies.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkRandomizeEnemies.ForeColor = System.Drawing.SystemColors.Control;
-            this.chkRandomizeEnemies.Location = new System.Drawing.Point(152, 71);
-            this.chkRandomizeEnemies.Name = "chkRandomizeEnemies";
-            this.chkRandomizeEnemies.Size = new System.Drawing.Size(66, 17);
-            this.chkRandomizeEnemies.TabIndex = 40;
-            this.chkRandomizeEnemies.Text = "Enemies";
-            this.chkRandomizeEnemies.UseVisualStyleBackColor = true;
+            this.chkRandomizeObjects.AutoSize = true;
+            this.chkRandomizeObjects.Checked = true;
+            this.chkRandomizeObjects.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkRandomizeObjects.ForeColor = System.Drawing.SystemColors.Control;
+            this.chkRandomizeObjects.Location = new System.Drawing.Point(152, 71);
+            this.chkRandomizeObjects.Name = "chkRandomizeObjects";
+            this.chkRandomizeObjects.Size = new System.Drawing.Size(62, 17);
+            this.chkRandomizeObjects.TabIndex = 40;
+            this.chkRandomizeObjects.Text = "Objects";
+            this.chkRandomizeObjects.UseVisualStyleBackColor = true;
             // 
             // chkRandomizeMarioClothes
             // 
@@ -911,7 +947,7 @@
             this.btnHelp.FlatAppearance.BorderSize = 0;
             this.btnHelp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHelp.ForeColor = System.Drawing.Color.Transparent;
-            this.btnHelp.Location = new System.Drawing.Point(339, 77);
+            this.btnHelp.Location = new System.Drawing.Point(265, 26);
             this.btnHelp.Name = "btnHelp";
             this.btnHelp.Size = new System.Drawing.Size(35, 35);
             this.btnHelp.TabIndex = 26;
@@ -921,39 +957,15 @@
             this.btnHelp.MouseEnter += new System.EventHandler(this.btnHelp_Enter);
             this.btnHelp.MouseHover += new System.EventHandler(this.btnHelp_Hover);
             // 
-            // tabMisc
-            // 
-            this.tabMisc.BackColor = System.Drawing.Color.Black;
-            this.tabMisc.Controls.Add(this.chkWarpPatch);
-            this.tabMisc.Controls.Add(this.chkRandomizeText);
-            this.tabMisc.Location = new System.Drawing.Point(4, 22);
-            this.tabMisc.Name = "tabMisc";
-            this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMisc.Size = new System.Drawing.Size(336, 322);
-            this.tabMisc.TabIndex = 7;
-            this.tabMisc.Text = "Misc";
-            // 
-            // chkWarpPatch
-            // 
-            this.chkWarpPatch.AutoSize = true;
-            this.chkWarpPatch.Checked = true;
-            this.chkWarpPatch.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWarpPatch.ForeColor = System.Drawing.Color.White;
-            this.chkWarpPatch.Location = new System.Drawing.Point(18, 26);
-            this.chkWarpPatch.Name = "chkWarpPatch";
-            this.chkWarpPatch.Size = new System.Drawing.Size(123, 17);
-            this.chkWarpPatch.TabIndex = 42;
-            this.chkWarpPatch.Text = "Patch Fading Warps";
-            this.chkWarpPatch.UseVisualStyleBackColor = true;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(404, 481);
-            this.Controls.Add(this.btnHelp);
-            this.Controls.Add(this.chkRandomizeEnemies);
+            this.Controls.Add(this.btnLoadAllBehav);
+            this.Controls.Add(this.chkRandomizeObjects);
+            this.Controls.Add(this.btnSaveAllBehav);
             this.Controls.Add(this.chkRandomizeMarioClothes);
             this.Controls.Add(this.chkRandomizeMusic);
             this.Controls.Add(this.chkRandomizeWarps);
@@ -969,15 +981,14 @@
             this.MaximumSize = new System.Drawing.Size(420, 1080);
             this.MinimumSize = new System.Drawing.Size(420, 350);
             this.Name = "Main";
-            this.Text = "Super Mario 64 Randomizer v1.0";
+            this.Text = "Super Mario 64 Randomizer v1.1";
             this.Load += new System.EventHandler(this.Main_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudSeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudStarAmount)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabWarps.ResumeLayout(false);
             this.tabWarps.PerformLayout();
-            this.tabEnemies.ResumeLayout(false);
-            this.tabEnemies.PerformLayout();
+            this.tabObjects.ResumeLayout(false);
             this.tabClothes.ResumeLayout(false);
             this.tabClothes.PerformLayout();
             this.tabSequence.ResumeLayout(false);
@@ -1011,7 +1022,7 @@
         private System.Windows.Forms.Button btnSaveRom;
         private System.Windows.Forms.Button btnRandomize;
         private System.Windows.Forms.Button btnOpenRom;
-        private System.Windows.Forms.CheckBox chkRandomizeEnemies;
+        private System.Windows.Forms.CheckBox chkRandomizeObjects;
         private System.Windows.Forms.CheckBox chkRandomizeMarioClothes;
         private System.Windows.Forms.CheckBox chkRandomizeMusic;
         private System.Windows.Forms.CheckBox chkRandomizeWarps;
@@ -1034,23 +1045,24 @@
         private System.Windows.Forms.TabPage tabWarps;
         private System.Windows.Forms.Button btnRefreshList;
         private System.Windows.Forms.CheckBox chkWarpFile;
-        private System.Windows.Forms.TabPage tabEnemies;
-        private System.Windows.Forms.Button btnRestoreBehaviours;
-        private System.Windows.Forms.Button btnAddBehaviour;
-        private System.Windows.Forms.Button btnRemoveBehaviour;
-        private System.Windows.Forms.ListBox lBehaviours;
+        private System.Windows.Forms.TabPage tabObjects;
         private System.Windows.Forms.Button btnHelp;
-        private System.Windows.Forms.Button btnLoadBehaviours;
-        private System.Windows.Forms.Button btnSaveBehaviours;
-        private System.Windows.Forms.TextBox txtNewBehaviour;
         private System.Windows.Forms.CheckBox chkRandomizeHair;
         private System.Windows.Forms.CheckBox chkRandomizeSkin;
-        private System.Windows.Forms.Button btnLoadWarpList;
-        private System.Windows.Forms.Button btnSaveWarpList;
         private System.Windows.Forms.Button btnRestoreWarps;
         private System.Windows.Forms.CheckedListBox chklbWarpList;
         private System.Windows.Forms.TabPage tabMisc;
         private System.Windows.Forms.CheckBox chkWarpPatch;
+        private System.Windows.Forms.CheckBox chkRandomizeInsideWarps;
+        private System.Windows.Forms.CheckBox chkBoxMixWarps;
+        private System.Windows.Forms.CheckBox chkRandomizeHubs;
+        private System.Windows.Forms.Button btnRemoveObjectAddress;
+        private System.Windows.Forms.Button btnEditWarpObjects;
+        private System.Windows.Forms.Button btnEditGroundedObjects;
+        private System.Windows.Forms.Button btnEditNonGrounded;
+        private System.Windows.Forms.Button btnLoadAllBehav;
+        private System.Windows.Forms.Button btnSaveAllBehav;
+        private System.Windows.Forms.Button btnRestoreAllBehaviours;
     }
 }
 
