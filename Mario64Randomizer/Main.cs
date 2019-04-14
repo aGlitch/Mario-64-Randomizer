@@ -979,8 +979,8 @@ namespace Mario64Randomizer
                     warpingBehavioursWithNames = CutData(settings, ref index);
                     removeAddresses = CutData(settings, ref index);
 
-                    warpingBehaviours = Properties.Resources.warpBehaviours.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries).ToList().Select(x => Convert.ToInt32(x.Split(new char[] { ':' })[0].Trim(), 16)).ToList();
-
+                    warpingBehaviours = warpingBehavioursWithNames.Select(x => Convert.ToInt32(x.Split(new char[] { ':' })[0].Trim(), 16)).ToList();
+                    
                     SM64.Object.SetNonGroundedBehaviours(behavioursWithNames);
                     MessageBox.Show("Config Loaded!", "Done", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                 }
